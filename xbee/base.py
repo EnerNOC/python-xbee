@@ -146,8 +146,9 @@ class XBeeBase(object):
                 log.warn("Serial error: %s", ex)
                 try: # try to re-init the device
                     if self.serial is not None:
-                        self.serial.open() 
-                        log.debug("Re-opened serial port @ %s", self.serial.port)
+                        log.debug("Setup for serial port re-start @ %s", self.serial.port)
+                        self.serial.close()
+                        self.serial = None
                 except Exception, msg: 
                     # worst case, completely re-init the device
                     log.exception( "Error re-opening serial port! %s", msg )
